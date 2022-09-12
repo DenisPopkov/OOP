@@ -1,7 +1,6 @@
 import Game.copy
 import TicTacToe.board
 import TicTacToe.boardSize
-import TicTacToe.outputBuffer
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 

@@ -8,6 +8,11 @@ import java.io.PrintStream
 
 fun isFill(board: Array<Array<Char>>) = board.flatten().contains(' ')
 
+fun requestUserStep(): String {
+    print("Enter your step: ")
+    return readLine().toString().uppercase()
+}
+
 fun checkWin(board: Array<Array<Char>>): Char {
     var line = " "
     var counter = 0
