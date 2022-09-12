@@ -1,9 +1,7 @@
 import TicTacToe.board
 import TicTacToe.boardSize
 import TicTacToe.currentIndex
-import TicTacToe.outputConsole
 import TicTacToe.winLines
-import java.io.PrintStream
 
 fun String.isSame() = length == boardSize && reversed() == this
 
