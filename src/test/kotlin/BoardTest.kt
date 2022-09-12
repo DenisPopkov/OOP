@@ -1,10 +1,9 @@
+import Game.copy
 import TicTacToe.board
 import TicTacToe.boardSize
 import TicTacToe.outputBuffer
-import TicTacToe.outputConsole
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
-import java.io.ByteArrayInputStream
 
 class BoardTest : StringSpec() {
     init {
@@ -18,32 +17,27 @@ class BoardTest : StringSpec() {
         secondBoard[0][2] = 'X'
 
         "print 3x3" {
-            printBoard(outputConsole)
-            outputBuffer.toString() shouldBe "  012\n0    \n1  X \n2   0\n"
-        }
-        "print 3x4" {
-            printBoard(outputConsole)
-            outputBuffer.toString() shouldBe "   0123\n0    \n1  X  \n2   0 \n"
+            board.printBoard() shouldBe firstBoard.printBoard()
         }
 
         "is true board" {
-            checkWin(firstBoard) shouldBe 'X'
+            firstBoard.checkWin() shouldBe 'X'
         }
 
         "is false board" {
-            checkWin(secondBoard) shouldBe ' '
+            secondBoard.checkWin() shouldBe ' '
         }
 
         "is fill" {
-            isFill(secondBoard) shouldBe true
+            secondBoard.isFill() shouldBe true
         }
 
         "point" {
-            pointFromString("1 0") shouldBe arrayOf(1, 0)
+            "1 0".pointFromString() shouldBe Pair(1, 0)
         }
 
         "isRightMove" {
-            isRightMove(secondBoard, arrayOf(1, 0)) shouldBe true
+            secondBoard.isRightMove(Pair(0, 1)) shouldBe true
         }
     }
 }
@@ -76,9 +70,14 @@ class TestXO : StringSpec({
         game() shouldBe println("Draw!")
     }
     "TicTacToe - incorrect step" {
-        arrayOf(0, 4).isIncorrectPoint() shouldBe true
-        arrayOf(-1, 0).isIncorrectPoint() shouldBe true
-        arrayOf(9, -1).isIncorrectPoint() shouldBe true
-        arrayOf(0, 2).isIncorrectPoint() shouldBe false
+        Pair(0, 2).isIncorrectPoint() shouldBe false
+        Pair(-1, 0).isIncorrectPoint() shouldBe true
+        Pair(0, 2).isIncorrectPoint() shouldBe false
+        Pair(0, 0).isIncorrectPoint() shouldBe false
+    }
+
+    "copy" {
+        board.copy()
+        Game.game.first().printBoard() shouldBe board.printBoard()
     }
 })

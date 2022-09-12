@@ -1,9 +1,11 @@
+import Game.copy
+import Game.game
 import TicTacToe.board
+import TicTacToe.currentIndex
 import TicTacToe.outputConsole
-import TicTacToe.userStep
-import TicTacToe.winLines
 import java.io.PrintStream
 
+<<<<<<< Updated upstream
 fun printBoard(out: PrintStream = outputConsole) {
     board.indices.forEach {
         out.println("|${board[it].contentToString().replaceUnusualSymbols()}|")
@@ -39,17 +41,20 @@ fun checkWin(board: Array<Array<Char>>): Char {
 
 fun isRightMove(board: Array<Array<Char>>, point: Array<Int>) = board[point.component1()][point.component2()].toString().isBlank()
 
+=======
+>>>>>>> Stashed changes
 fun requestUserPoint(): String {
-    if (userStep % 2 == 0) println("First player, your X") else println("Second player, your 0")
+    if (currentIndex % 2 == 0) println("First player, your X") else println("Second player, your 0")
     print("Enter your point: ")
     return readLine().toString()
 }
 
-fun requestUserStep(): String {
+fun requestCurrentIndex(): String {
     print("Enter your step: ")
     return readLine().toString().uppercase()
 }
 
+<<<<<<< Updated upstream
 fun game(output: PrintStream = outputConsole): Unit {
     while (isFill(board)) {
         do {
@@ -75,5 +80,45 @@ fun game(output: PrintStream = outputConsole): Unit {
             printBoard()
             userStep++
         } while (point.isIncorrectPoint())
+=======
+fun game(output: PrintStream = outputConsole) {
+    run breakable@ {
+        while (board.isFill()) {
+            do {
+                if (board.checkWin().toString().isNotBlank()) {
+                    if (currentIndex % 2 != 0) println("First player won") else println("Second player won")
+                    return@breakable
+                }
+                val point = requestUserPoint().pointFromString() ?: Pair(0, 0)
+                
+                when {
+                    !board.isFill() -> {
+                        println("Draw!")
+                        return@breakable
+                    }
+
+                    point.isIncorrectPoint() -> {
+                        println("Incorrect step")
+                        return@breakable
+                    }
+
+                    point.isNotCommand() -> {
+                        currentIndex = point.second
+                        board = game[point.second]
+                        game[point.second].printBoard()
+                    }
+
+                    !point.isNotCommand() -> {
+                        with (board) {
+                            this[point.component1()][point.component2()] = requestCurrentIndex().correctStep().first()
+                            printBoard()
+                            board.copy()
+                            currentIndex++
+                        }
+                    }
+                }
+            } while (point.isIncorrectPoint())
+        }
+>>>>>>> Stashed changes
     }
 }
