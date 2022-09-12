@@ -3,19 +3,10 @@ import Game.game
 import TicTacToe.board
 import TicTacToe.currentIndex
 import TicTacToe.outputConsole
+import TicTacToe.winLines
 import java.io.PrintStream
 
-<<<<<<< Updated upstream
-fun printBoard(out: PrintStream = outputConsole) {
-    board.indices.forEach {
-        out.println("|${board[it].contentToString().replaceUnusualSymbols()}|")
-    }
-}
-
 fun isFill(board: Array<Array<Char>>) = board.flatten().contains(' ')
-
-fun pointFromString(string: String) =
-    arrayOf(string.trim().split(" ").component1().toInt(), string.split(" ").component2().toInt())
 
 fun checkWin(board: Array<Array<Char>>): Char {
     var line = " "
@@ -39,10 +30,10 @@ fun checkWin(board: Array<Array<Char>>): Char {
     return line.first()
 }
 
-fun isRightMove(board: Array<Array<Char>>, point: Array<Int>) = board[point.component1()][point.component2()].toString().isBlank()
+fun isRightMove(board: Array<Array<Char>>, point: Array<Int>) =
+    board[point.component1()][point.component2()].toString().isBlank()
 
-=======
->>>>>>> Stashed changes
+
 fun requestUserPoint(): String {
     if (currentIndex % 2 == 0) println("First player, your X") else println("Second player, your 0")
     print("Enter your point: ")
@@ -54,15 +45,14 @@ fun requestCurrentIndex(): String {
     return readLine().toString().uppercase()
 }
 
-<<<<<<< Updated upstream
 fun game(output: PrintStream = outputConsole): Unit {
     while (isFill(board)) {
         do {
             if (checkWin(board).toString().isNotBlank()) {
-                if (userStep % 2 != 0) println("First player won") else println("Second player won")
+                if (currentIndex % 2 != 0) println("First player won") else println("Second player won")
                 return
             }
-            val point = pointFromString(requestUserPoint())
+            val point = requestUserPoint().pointFromString() ?: Pair(0, 0)
             when {
                 !isFill(board) -> {
                     println("Draw!")
@@ -73,52 +63,27 @@ fun game(output: PrintStream = outputConsole): Unit {
                     println("Incorrect step")
                     return
                 }
+
+                point.isNotCommand() -> {
+                    currentIndex = point.second
+                    board = game[point.second]
+                    game[point.second].printBoard()
+                }
+
+                !point.isNotCommand() -> {
+                    with(board) {
+                        this[point.component1()][point.component2()] = requestCurrentIndex().correctStep().first()
+                        printBoard()
+                        board.copy()
+                        currentIndex++
+                    }
+                }
             }
 
             val userInput = requestUserStep().correctStep()
             board[point.component1()][point.component2()] = userInput.first()
-            printBoard()
-            userStep++
+            board.printBoard()
+            currentIndex++
         } while (point.isIncorrectPoint())
-=======
-fun game(output: PrintStream = outputConsole) {
-    run breakable@ {
-        while (board.isFill()) {
-            do {
-                if (board.checkWin().toString().isNotBlank()) {
-                    if (currentIndex % 2 != 0) println("First player won") else println("Second player won")
-                    return@breakable
-                }
-                val point = requestUserPoint().pointFromString() ?: Pair(0, 0)
-                
-                when {
-                    !board.isFill() -> {
-                        println("Draw!")
-                        return@breakable
-                    }
-
-                    point.isIncorrectPoint() -> {
-                        println("Incorrect step")
-                        return@breakable
-                    }
-
-                    point.isNotCommand() -> {
-                        currentIndex = point.second
-                        board = game[point.second]
-                        game[point.second].printBoard()
-                    }
-
-                    !point.isNotCommand() -> {
-                        with (board) {
-                            this[point.component1()][point.component2()] = requestCurrentIndex().correctStep().first()
-                            printBoard()
-                            board.copy()
-                            currentIndex++
-                        }
-                    }
-                }
-            } while (point.isIncorrectPoint())
-        }
->>>>>>> Stashed changes
     }
 }
