@@ -16,20 +16,22 @@ fun pointFromString(string: String) =
     arrayOf(string.trim().split(" ").component1().toInt(), string.split(" ").component2().toInt())
 
 fun checkWin(board: Array<Array<Char>>): Char {
-    var line = ""
-    run array@{
-        winLines.forEach { array ->
-            array.forEach {
+    var line = " "
+    var counter = 0
+    while (counter < winLines.size) {
+        winLines.forEach { winningLine ->
+            winningLine.forEach {
                 line += board[it.component1()][it.component2()]
             }
-
             line = line.replace(" ", "")
-
-            when {
-                line.isSame() -> return@array
-                else -> line = " "
+            if (line.isSame()) {
+                return line.first()
+            } else {
+                line = " "
             }
         }
+
+        counter++
     }
 
     return line.first()
@@ -48,32 +50,30 @@ fun requestUserStep(): String {
     return readLine().toString().uppercase()
 }
 
-fun game(output: PrintStream = outputConsole) {
-    run breakable@ {
-        while (isFill(board)) {
-            do {
-                if (checkWin(board).toString().isNotBlank()) {
-                    if (userStep % 2 != 0) println("First player won") else println("Second player won")
-                    return@breakable
-                }
-                val point = pointFromString(requestUserPoint())
-                when {
-                    !isFill(board) -> {
-                        println("Draw!")
-                        return@breakable
-                    }
-
-                    point.isIncorrectPoint() -> {
-                        println("Incorrect step")
-                        return@breakable
-                    }
+fun game(output: PrintStream = outputConsole): Unit {
+    while (isFill(board)) {
+        do {
+            if (checkWin(board).toString().isNotBlank()) {
+                if (userStep % 2 != 0) println("First player won") else println("Second player won")
+                return
+            }
+            val point = pointFromString(requestUserPoint())
+            when {
+                !isFill(board) -> {
+                    println("Draw!")
+                    return
                 }
 
-                val userInput = requestUserStep().correctStep()
-                board[point.component1()][point.component2()] = userInput.first()
-                printBoard(output)
-                userStep++
-            } while (point.isIncorrectPoint())
-        }
+                point.isIncorrectPoint() -> {
+                    println("Incorrect step")
+                    return
+                }
+            }
+
+            val userInput = requestUserStep().correctStep()
+            board[point.component1()][point.component2()] = userInput.first()
+            printBoard()
+            userStep++
+        } while (point.isIncorrectPoint())
     }
 }
