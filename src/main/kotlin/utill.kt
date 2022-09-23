@@ -19,7 +19,7 @@ fun checkWin(board: Array<Array<Char>>): Char {
     while (counter < winLines.size) {
         winLines.forEach { winningLine ->
             winningLine.forEach {
-                line += board[it.component1()][it.component2()]
+                line += board[it[0]][it[1]]
             }
             line = line.replace(" ", "")
             if (line.isSame()) {
@@ -36,7 +36,7 @@ fun checkWin(board: Array<Array<Char>>): Char {
 }
 
 fun isRightMove(board: Array<Array<Char>>, point: Array<Int>) =
-    board[point.component1()][point.component2()].toString().isBlank()
+    board[point[0]][point[1]].toString().isBlank()
 
 
 fun requestUserPoint(): String {
@@ -77,7 +77,7 @@ fun game(output: PrintStream = outputConsole): Unit {
 
                 !point.isNotCommand() -> {
                     with(board) {
-                        this[point.component1()][point.component2()] = requestCurrentIndex().correctStep().first()
+                        this[point.first][point.second] = requestCurrentIndex().correctStep().first()
                         printBoard()
                         board.copy()
                         currentIndex++
@@ -86,7 +86,7 @@ fun game(output: PrintStream = outputConsole): Unit {
             }
 
             val userInput = requestUserStep().correctStep()
-            board[point.component1()][point.component2()] = userInput.first()
+            board[point.first][point.second] = userInput.first()
             board.printBoard()
             currentIndex++
         } while (point.isIncorrectPoint())

@@ -12,7 +12,7 @@ fun Pair<Int, Int>.isIncorrectPoint() = (toList().sum() !in 0..4 || board[first]
 fun Pair<Int, Int>.isNotCommand() = first == -1
 
 fun Array<Array<Char>>.get(point: Pair<Int, Int>): Char = this[point.first][point.second]
-fun Array<Array<Char>>.get(point: Array<Int>): Char = this[point.component1()][point.component2()]
+fun Array<Array<Char>>.get(point: Array<Int>): Char = this[point[0]][point[1]]
 fun Array<Array<Char>>.set(point: Pair<Int, Int>, char: Char) {
     this[point.first][point.second] = char
 }
@@ -30,18 +30,16 @@ fun Array<Array<Char>>.printBoard() {
 
 fun Array<Array<Char>>.checkWin(): Char {
     var line = ""
-    run array@{
-        winLines.forEach { array ->
-            array.forEach {
-                line += this[it.component1()][it.component2()]
-            }
+    winLines.forEach { array ->
+        array.forEach {
+            line += this[it[0]][it[1]]
+        }
 
-            line = line.replace(" ", "")
+        line = line.replace(" ", "")
 
-            when {
-                line.isSame() -> return@array
-                else -> line = " "
-            }
+        when {
+            line.isSame() -> return ' '
+            else -> line = " "
         }
     }
 
@@ -49,11 +47,11 @@ fun Array<Array<Char>>.checkWin(): Char {
 }
 
 fun Array<Array<Char>>.isFill() = flatten().contains(' ')
-fun Array<Array<Char>>.isRightMove(point: Pair<Int, Int>) = this[point.component1()][point.component2()].toString().isBlank()
+fun Array<Array<Char>>.isRightMove(point: Pair<Int, Int>) = this[point.first][point.second].toString().isBlank()
 
 fun String.pointFromString(): Pair<Int, Int>? {
    return Pair(
-        trim().split(" ").component1().toIntOrNull() ?: return null,
-        split(" ").component2().toIntOrNull() ?: return null
+        trim().split(" ")[0].toIntOrNull() ?: return null,
+        split(" ")[1].toIntOrNull() ?: return null
     )
 }
