@@ -49,7 +49,7 @@ fun requestCurrentIndex(): String {
     print("Enter your step: ")
     return readLine().toString().uppercase()
 }
-
+ 
 fun game(output: PrintStream = outputConsole): Unit {
     while (isFill(board)) {
         do {
