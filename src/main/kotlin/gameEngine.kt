@@ -44,9 +44,10 @@ fun requestUserPoint(reader: BufferedReader): String {
 
 fun game(inputStream: InputStream = System.`in`, output: PrintStream = outputConsole) {
     val board = Array(boardSize) { Array(boardSize) { ' ' } }
-    var currentIndex = 0
-    var userInput: String
     val reader = BufferedReader(inputStream.reader())
+    var point: Pair<Int, Int>?
+    var currentIndex = 0
+
     do {
         if (board.checkWin().toString().isNotBlank()) {
             if (currentIndex % 2 != 0) {
@@ -64,15 +65,13 @@ fun game(inputStream: InputStream = System.`in`, output: PrintStream = outputCon
             break
         }
 
-        var point: Pair<Int, Int>?
         do {
             point = requestUserPoint(reader).pointFromString()
         } while (point != null && !(point.isNotCommand() || board.isRightMove(point)))
 
-        userInput = if (currentIndex % 2 != 0) "X" else "0"
-
-        point?.let { board[it.first][it.second] = userInput.first() }
+        point?.let { board[it.first][it.second] = (if (currentIndex % 2 != 0) "X" else "0").first() }
         board.printBoard(output)
         currentIndex++
-    } while (point?.toList()?.sum() in 0..4 || board[0][1].toString().isNotBlank() || board.isFill())
+
+    } while (point?.toList()?.sum() in 0..4 || board.isFill())
 }
