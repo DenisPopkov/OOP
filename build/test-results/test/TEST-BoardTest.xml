@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="BoardTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2022-09-11T11:18:53" hostname="MacBook-Pro.local" time="0.029">
+<testsuite name="BoardTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2022-10-22T03:11:21" hostname="MacBook-Pro.local" time="0.049">
   <properties/>
-  <testcase name="print 3x3" classname="BoardTest" time="0.011"/>
-  <testcase name="is true board" classname="BoardTest" time="0.008"/>
-  <testcase name="is false board" classname="BoardTest" time="0.001"/>
-  <testcase name="is fill" classname="BoardTest" time="0.0"/>
-  <testcase name="point" classname="BoardTest" time="0.002"/>
-  <testcase name="isRightMove" classname="BoardTest" time="0.0"/>
-  <system-out><![CDATA[|   |
-|   |
-|   |
-|   |
-|   |
-|   |
-]]></system-out>
+  <testcase name="print" classname="BoardTest" time="0.016"/>
+  <testcase name="print 4x3" classname="BoardTest" time="0.0"/>
+  <testcase name="trueBoard" classname="BoardTest" time="0.012"/>
+  <testcase name="falseBoard" classname="BoardTest" time="0.001"/>
+  <testcase name="isFill" classname="BoardTest" time="0.001"/>
+  <testcase name="point" classname="BoardTest" time="0.005"/>
+  <testcase name="isRightMove" classname="BoardTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

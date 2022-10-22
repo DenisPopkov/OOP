@@ -1,94 +1,65 @@
-import Game.copy
-import Game.game
 import TicTacToe.board
+import TicTacToe.boardSize
 import TicTacToe.currentIndex
 import TicTacToe.outputConsole
-import TicTacToe.winLines
+import java.io.BufferedReader
+import java.io.InputStream
 import java.io.PrintStream
 
 fun isFill(board: Array<Array<Char>>) = board.flatten().contains(' ')
-
-fun requestUserStep(): String {
-    print("Enter your step: ")
-    return readLine().toString().uppercase()
-}
-
-fun checkWin(board: Array<Array<Char>>): Char {
-    var line = " "
-    var counter = 0
-    while (counter < winLines.size) {
-        winLines.forEach { winningLine ->
-            winningLine.forEach {
-                line += board[it[0]][it[1]]
-            }
-            line = line.replace(" ", "")
-            if (line.isSame()) {
-                return line.first()
-            } else {
-                line = " "
-            }
-        }
-
-        counter++
-    }
-
-    return line.first()
-}
 
 fun isRightMove(board: Array<Array<Char>>, point: Array<Int>) =
     board[point[0]][point[1]].toString().isBlank()
 
 
-fun requestUserPoint(): String {
-    if (currentIndex % 2 == 0) println("First player, your X") else println("Second player, your 0")
+fun requestUserPoint(reader: BufferedReader): String {
+    if (currentIndex % 2 == 0)
+        println("First player, your 0")
+    else
+        println("Second player, your X")
     print("Enter your point: ")
-    return readLine().toString()
+    return reader.readLine()
 }
 
-fun requestCurrentIndex(): String {
-    print("Enter your step: ")
-    return readLine().toString().uppercase()
-}
- 
-fun game(output: PrintStream = outputConsole): Unit {
-    while (isFill(board)) {
-        do {
-            if (checkWin(board).toString().isNotBlank()) {
-                if (currentIndex % 2 != 0) println("First player won") else println("Second player won")
+fun game(inputStream: InputStream = System.`in`, output: PrintStream = outputConsole) {
+    board = Array(boardSize) { Array(boardSize) { ' ' } }
+    currentIndex = 0
+    val reader = BufferedReader(inputStream.reader())
+    var userInput: String
+    do {
+        if (board.checkWin().toString().isNotBlank()) {
+            if (currentIndex % 2 != 0) {
+                output.print("First player won")
+                print("\n")
+                return
+            } else {
+                output.print("Second player won")
+                print("\n")
                 return
             }
-            val point = requestUserPoint().pointFromString() ?: Pair(0, 0)
-            when {
-                !isFill(board) -> {
-                    println("Draw!")
-                    return
-                }
-
-                point.isIncorrectPoint() -> {
-                    println("Incorrect step")
-                    return
-                }
-
-                point.isNotCommand() -> {
-                    currentIndex = point.second
-                    board = game[point.second]
-                    game[point.second].printBoard()
-                }
-
-                !point.isNotCommand() -> {
-                    with(board) {
-                        this[point.first][point.second] = requestCurrentIndex().correctStep().first()
-                        printBoard()
-                        board.copy()
-                        currentIndex++
-                    }
-                }
+        }
+        var point = requestUserPoint(reader).pointFromString()
+        while ((point!!.first < 0 || point.second < 0) || (point.first > 2 || point.second > 2)) {
+            output.print("Incorrect Step, true again")
+            point = requestUserPoint(reader).pointFromString()
+        }
+        userInput = if (currentIndex % 2 != 0) "X" else "0"
+        when {
+            !isFill(board) -> {
+                output.print("Draw!")
+                print("\n")
+                return
             }
 
-            val userInput = requestUserStep().correctStep()
-            board[point.first][point.second] = userInput.first()
-            board.printBoard()
-            currentIndex++
-        } while (point.isIncorrectPoint())
-    }
+            !board.isRightMove(point) -> {
+                output.print("Incorrect step!")
+                print("\n")
+                return
+            }
+        }
+
+        board[point.first][point.second] = userInput.first()
+        board.printBoard(output)
+        currentIndex++
+    } while (point?.toList()?.sum() in 0..4 || board[0][1].toString().isNotBlank() || isFill(board))
 }

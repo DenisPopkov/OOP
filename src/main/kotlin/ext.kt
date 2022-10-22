@@ -1,13 +1,8 @@
-import TicTacToe.board
-import TicTacToe.boardSize
-import TicTacToe.currentIndex
+import TicTacToe.outputConsole
 import TicTacToe.winLines
+import java.io.PrintStream
 
-fun String.isSame() = length == boardSize && reversed() == this
-
-fun String.correctStep() = if (currentIndex % 2 == 0 && this != "X") "0" else this
-
-fun Pair<Int, Int>.isIncorrectPoint() = (toList().sum() !in 0..4 || board[first][second].toString().isNotBlank()) && !isNotCommand()
+fun String.isSame() = (this == "XXX") || (this == "000")
 
 fun Pair<Int, Int>.isNotCommand() = first == -1
 
@@ -17,32 +12,34 @@ fun Array<Array<Char>>.set(point: Pair<Int, Int>, char: Char) {
     this[point.first][point.second] = char
 }
 
-fun Array<Array<Char>>.printBoard() {
+fun Array<Array<Char>>.printBoard(out: PrintStream = outputConsole) {
     val boardString = joinToString(
         separator = "\n",
         prefix = "\n",
     ) { row ->
-        row.joinToString(" ", prefix = "|", postfix = "|")
+        row.joinToString(separator = " ", prefix = "|", postfix = "|")
     }
 
-    println(boardString)
+    out.println(boardString)
 }
 
 fun Array<Array<Char>>.checkWin(): Char {
-    var line = ""
-    winLines.forEach { array ->
-        array.forEach {
-            line += this[it[0]][it[1]]
+    var line = " "
+    var counter = 0
+    while (counter < winLines.size) {
+        winLines.forEach { winningLine ->
+            winningLine.forEach {
+                line += this[it[0]][it[1]]
+            }
+            line = line.replace(" ", "")
+            if (line.isSame()) {
+                return line.first()
+            } else {
+                line = " "
+            }
         }
-
-        line = line.replace(" ", "")
-
-        when {
-            line.isSame() -> return ' '
-            else -> line = " "
-        }
+        counter++
     }
-
     return line.first()
 }
 
