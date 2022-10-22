@@ -1,3 +1,5 @@
+import Game.copy
+import Game.game
 import TicTacToe.boardSize
 import TicTacToe.outputConsole
 import TicTacToe.winLines
@@ -43,7 +45,7 @@ fun requestUserPoint(reader: BufferedReader): String {
 }
 
 fun game(inputStream: InputStream = System.`in`, output: PrintStream = outputConsole) {
-    val board = Array(boardSize) { Array(boardSize) { ' ' } }
+    var board = Array(boardSize) { Array(boardSize) { ' ' } }
     val reader = BufferedReader(inputStream.reader())
     var point: Pair<Int, Int>?
     var currentIndex = 0
@@ -67,11 +69,19 @@ fun game(inputStream: InputStream = System.`in`, output: PrintStream = outputCon
 
         do {
             point = requestUserPoint(reader).pointFromString()
-        } while (point != null && !(point.isNotCommand() || board.isRightMove(point)))
+        } while (point != null && !(point.isCommand() || board.isRightMove(point)))
 
-        point?.let { board[it.first][it.second] = (if (currentIndex % 2 != 0) "X" else "0").first() }
-        board.printBoard(output)
-        currentIndex++
+        point?.let {
+            when {
+                it.isCommand() -> board = game[point.second]
+                currentIndex % 2 != 0 -> board[it.first][it.second] = 'X'
+                else -> board[it.first][it.second] = '0'
+            }.let {
+                board.printBoard(output)
+                board.copy()
+                currentIndex++
+            }
+        }
 
     } while (point?.toList()?.sum() in 0..4 || board.isFill())
 }
