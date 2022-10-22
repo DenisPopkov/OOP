@@ -1,41 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="GameTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2022-10-22T10:48:00" hostname="MacBook-Pro.local" time="0.036">
+<testsuite name="GameTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-10-22T11:15:23" hostname="MacBook-Pro.local" time="0.026">
   <properties/>
-  <testcase name="game1 (X)" classname="GameTest" time="0.024"/>
-  <testcase name="game2 (0)" classname="GameTest" time="0.002"/>
-  <testcase name="gameDraw" classname="GameTest" time="0.003"/>
-  <testcase name="copy" classname="GameTest" time="0.002"/>
-  <system-out><![CDATA[First player, your 0
-Enter your point: Second player, your X
-Enter your point: First player, your 0
-Enter your point: Second player, your X
-Enter your point: First player, your 0
-Enter your point: 
-First player, your 0
-Enter your point: Second player, your X
-Enter your point: First player, your 0
-Enter your point: Second player, your X
-Enter your point: First player, your 0
-Enter your point: Second player, your X
-Enter your point: 
-First player, your 0
-Enter your point: Second player, your X
-Enter your point: First player, your 0
-Enter your point: Second player, your X
-Enter your point: First player, your 0
-Enter your point: Second player, your X
-Enter your point: First player, your 0
-Enter your point: Second player, your X
-Enter your point: First player, your 0
-Enter your point: 
-
-|X X 0|
-|0 0 X|
-|X 0 0|
-
-|X X 0|
-|0 0 X|
-|X 0 0|
+  <testcase name="game1 (X)" classname="GameTest" time="0.02"/>
+  <testcase name="game2 (0)" classname="GameTest" time="0.001"/>
+  <testcase name="gameDraw" classname="GameTest" time="0.002"/>
+  <system-out><![CDATA[Enter your point: Enter your point: Enter your point: Enter your point: Enter your point: 
+Enter your point: Enter your point: Enter your point: Enter your point: Enter your point: Enter your point: 
+Enter your point: Enter your point: Enter your point: Enter your point: Enter your point: Enter your point: Enter your point: Enter your point: Enter your point: 
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

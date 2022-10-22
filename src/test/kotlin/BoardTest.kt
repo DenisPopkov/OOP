@@ -7,8 +7,6 @@ import BoardTestUtil.output
 import BoardTestUtil.outputBuffer
 import BoardTestUtil.winBoardArray
 import Game.copy
-import GameTestUtil.getBufferLastLine
-import TicTacToe.board
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import java.io.ByteArrayInputStream
@@ -45,9 +43,16 @@ class BoardTest : StringSpec({
     "isRightMove" {
         isRightMoveBoardArray.isRightMove(Pair(2, 2)) shouldBe true
     }
+
+    "copy" {
+        isFillBoardArray.copy()
+        Game.game.first().printBoard() shouldBe isFillBoardArray.printBoard()
+    }
 })
 
 class GameTest : StringSpec({
+
+    fun String.getBufferLastLine() = substring(this.lastIndexOf("\n"))
 
     "game1 (X)" {
         val input = "1 1\n1 2\n0 1\n0 2\n2 1\n"
@@ -65,10 +70,5 @@ class GameTest : StringSpec({
         val input = "1 1\n0 0\n1 0\n1 2\n2 1\n0 1\n0 2\n2 0\n2 2\n1 1\n"
         game(ByteArrayInputStream(input.toByteArray()), output)
         outputBuffer.toString().getBufferLastLine() shouldBe "\nDraw!"
-    }
-
-    "copy" {
-        board.copy()
-        Game.game.first().printBoard() shouldBe board.printBoard()
     }
 })
