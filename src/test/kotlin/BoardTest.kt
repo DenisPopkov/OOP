@@ -7,12 +7,11 @@ import BoardTestUtil.output
 import BoardTestUtil.outputBuffer
 import BoardTestUtil.winBoardArray
 import Game.copy
+import GameTestUtil.getBufferLastLine
 import TicTacToe.board
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
-import java.io.PrintStream
 
 class BoardTest : StringSpec({
 
@@ -48,12 +47,7 @@ class BoardTest : StringSpec({
     }
 })
 
-class TestXO : StringSpec({
-
-    val outputBuffer = ByteArrayOutputStream()
-    val output = PrintStream(outputBuffer)
-
-    fun String.getBufferLastLine() = substring(this.lastIndexOf("\n"))
+class GameTest : StringSpec({
 
     "game1 (X)" {
         val input = "1 1\n1 2\n0 1\n0 2\n2 1\n"
@@ -71,18 +65,6 @@ class TestXO : StringSpec({
         val input = "1 1\n0 0\n1 0\n1 2\n2 1\n0 1\n0 2\n2 0\n2 2\n1 1\n"
         game(ByteArrayInputStream(input.toByteArray()), output)
         outputBuffer.toString().getBufferLastLine() shouldBe "\nDraw!"
-    }
-
-    "isRightMove" {
-        val board = arrayOf(
-            arrayOf('X', ' ', ' '),
-            arrayOf(' ', ' ', ' '),
-            arrayOf(' ', ' ', '0')
-        )
-        board.isRightMove(Pair(2, 2)) shouldBe false
-        board.isRightMove(Pair(1, 2)) shouldBe true
-        board.isRightMove(Pair(0, 0)) shouldBe false
-        board.isRightMove(Pair(1, 1)) shouldBe true
     }
 
     "copy" {
