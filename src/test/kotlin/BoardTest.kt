@@ -56,7 +56,7 @@ class BoardTest : StringSpec({
             arrayOf(' ', ' ', ' '),
             arrayOf(' ', ' ', 'X')
         )
-        isFill(board) shouldBe true
+        board.isFill() shouldBe true
     }
 
     "point" {
@@ -69,8 +69,7 @@ class BoardTest : StringSpec({
             arrayOf(' ', ' ', ' '),
             arrayOf(' ', ' ', ' ')
         )
-        val array = arrayOf(2, 2)
-        isRightMove(board, array) shouldBe true
+        board.isRightMove(Pair(2, 2)) shouldBe true
     }
 })
 
@@ -82,20 +81,17 @@ class TestXO : StringSpec({
         game(ByteArrayInputStream(input.toByteArray()), output)
         outputBuffer.toString().getBufferLastLine() shouldBe "\nFirst player won"
     }
+
     "game2 (0)" {
         val input = "0 0\n1 1\n1 0\n0 1\n2 2\n2 1\n"
         game(ByteArrayInputStream(input.toByteArray()), output)
         outputBuffer.toString().getBufferLastLine() shouldBe "\nSecond player won"
     }
+
     "gameDraw" {
-        val input = "1 1\n0 0\n1 0\n1 2\n2 1\n0 1\n0 2\n2 0\n2 2\n1 1"
+        val input = "1 1\n0 0\n1 0\n1 2\n2 1\n0 1\n0 2\n2 0\n2 2\n1 1\n"
         game(ByteArrayInputStream(input.toByteArray()), output)
         outputBuffer.toString().getBufferLastLine() shouldBe "\nDraw!"
-    }
-    "gameIncorrectStep" {
-        val input = "1 1\n1 1"
-        game(ByteArrayInputStream(input.toByteArray()), output)
-        outputBuffer.toString().getBufferLastLine() shouldBe "\nIncorrect step!"
     }
 
     "isRightMove" {
@@ -104,14 +100,10 @@ class TestXO : StringSpec({
             arrayOf(' ', ' ', ' '),
             arrayOf(' ', ' ', '0')
         )
-        val array = arrayOf(2, 2)
-        val array1 = arrayOf(1, 2)
-        val array2 = arrayOf(0, 0)
-        val array3 = arrayOf(1, 1)
-        isRightMove(board, array) shouldBe false
-        isRightMove(board, array1) shouldBe true
-        isRightMove(board, array2) shouldBe false
-        isRightMove(board, array3) shouldBe true
+        board.isRightMove(Pair(2, 2)) shouldBe false
+        board.isRightMove(Pair(1, 2)) shouldBe true
+        board.isRightMove(Pair(0, 0)) shouldBe false
+        board.isRightMove(Pair(1, 1)) shouldBe true
     }
 
     "copy" {
