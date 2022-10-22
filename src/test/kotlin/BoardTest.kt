@@ -1,3 +1,11 @@
+import BoardTestUtil.board3x3Array
+import BoardTestUtil.board4x3Array
+import BoardTestUtil.isFillBoardArray
+import BoardTestUtil.isRightMoveBoardArray
+import BoardTestUtil.notWinCombinationsOnBoardArray
+import BoardTestUtil.output
+import BoardTestUtil.outputBuffer
+import BoardTestUtil.winBoardArray
 import Game.copy
 import TicTacToe.board
 import io.kotest.core.spec.style.StringSpec
@@ -6,57 +14,29 @@ import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 
-val outputBuffer = ByteArrayOutputStream()
-val output = PrintStream(outputBuffer)
-
 class BoardTest : StringSpec({
+
     "print" {
-        val board = arrayOf(
-            arrayOf(' ', ' ', ' '),
-            arrayOf(' ', 'X', ' '),
-            arrayOf(' ', ' ', '0')
-        )
-        board.printBoard(output)
+        board3x3Array.printBoard(output)
         outputBuffer.toString() shouldBe "\n|     |\n|  X  |\n|    0|\n"
     }
 
     "print 4x3" {
         outputBuffer.reset()
-        val board = arrayOf(
-            arrayOf(' ', ' ', ' '),
-            arrayOf(' ', 'X', ' '),
-            arrayOf('X', ' ', '0'),
-            arrayOf('0', 'X', '0')
-        )
-        board.printBoard(output)
+        board4x3Array.printBoard(output)
         outputBuffer.toString() shouldBe "\n|     |\n|  X  |\n|X   0|\n|0 X 0|\n"
     }
 
-    "trueBoard" {
-        val board = arrayOf(
-            arrayOf('X', ' ', ' '),
-            arrayOf(' ', 'X', ' '),
-            arrayOf(' ', ' ', 'X')
-        )
-        board.checkWin() shouldBe 'X'
+    "winBoard" {
+        winBoardArray.checkWin() shouldBe 'X'
     }
 
-    "falseBoard" {
-        val board = arrayOf(
-            arrayOf('X', ' ', ' '),
-            arrayOf(' ', ' ', ' '),
-            arrayOf(' ', ' ', 'X')
-        )
-        board.checkWin() shouldBe ' '
+    "notWinCombinationsOnBoard" {
+        notWinCombinationsOnBoardArray.checkWin() shouldBe ' '
     }
 
     "isFill" {
-        val board = arrayOf(
-            arrayOf('X', ' ', ' '),
-            arrayOf(' ', ' ', ' '),
-            arrayOf(' ', ' ', 'X')
-        )
-        board.isFill() shouldBe true
+        isFillBoardArray.isFill() shouldBe true
     }
 
     "point" {
@@ -64,16 +44,15 @@ class BoardTest : StringSpec({
     }
 
     "isRightMove" {
-        val board = arrayOf(
-            arrayOf('X', ' ', ' '),
-            arrayOf(' ', ' ', ' '),
-            arrayOf(' ', ' ', ' ')
-        )
-        board.isRightMove(Pair(2, 2)) shouldBe true
+        isRightMoveBoardArray.isRightMove(Pair(2, 2)) shouldBe true
     }
 })
 
 class TestXO : StringSpec({
+
+    val outputBuffer = ByteArrayOutputStream()
+    val output = PrintStream(outputBuffer)
+
     fun String.getBufferLastLine() = substring(this.lastIndexOf("\n"))
 
     "game1 (X)" {
