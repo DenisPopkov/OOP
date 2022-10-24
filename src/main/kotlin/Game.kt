@@ -12,22 +12,30 @@ class Game(
 
     override fun toString() = states.last().board.cells.printBoard()
 
-    fun step(point: Point) = states.last().board.cells.isRightMove(point.toPair()).also {
-        val totalTurn = indexState.getTurn()
-        val newBoard = states.last().board.cells.copy()
-        newBoard[point.x][point.y] = totalTurn
-        val newState = State(board = Board(newBoard), turn = totalTurn)
-        states.add(newState)
-        newState.step(point)
+    private fun updateGameResult(newState: State) {
         gameOver = newState.gameResult == null
-        if (gameOver) println(newState.toString())
+        gameOver.then { println(newState.toString()) }
         indexState++
+    }
+
+    private fun copy(point: Point): Array<Array<Char>> {
+        val newBoard = states.last().board.cells.copy()
+        newBoard[point.x][point.y] = indexState.getTurn()
+        return newBoard
+    }
+
+    fun step(point: Point) = states.last().board.cells.isRightMove(point.toPair()).also {
+        with(State(Board(copy(point)))) {
+            states.add(this)
+            step(point)
+            updateGameResult(this)
+        }
     }
 
     fun takeBack(shift: Int) = (shift in 0..states.size).apply {
         then {
             indexState = shift
-            with (states) {
+            with(states) {
                 dropLastWhile { it != states[shift] }.also { addAll(this) }
             }
         }
