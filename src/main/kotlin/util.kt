@@ -11,6 +11,10 @@ val winLines = arrayOf(
     arrayOf(arrayOf(0, 0), arrayOf(1, 1), arrayOf(2, 2)),
     arrayOf(arrayOf(0, 2), arrayOf(1, 1), arrayOf(2, 0))
 )
+val arrayIndexes = arrayOf(0, 0)
+val pointsIndexes = Point(0, 0)
+
+fun getEmptyArray(size: Int) = Array(size) { Array(size) { ' ' } }
 
 fun Array<Array<Char>>.get(point: Pair<Int, Int>): Char = this[point.first][point.second]
 fun Array<Array<Char>>.get(point: Array<Int>): Char = this[point[0]][point[1]]

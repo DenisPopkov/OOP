@@ -2,8 +2,8 @@ class Game(
     state: State = State()
 ) {
 
+    private var indexState = 0
     val states = ArrayList<State>()
-    var indexState = 0
     var gameOver = false
 
     init {
