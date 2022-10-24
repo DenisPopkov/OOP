@@ -55,3 +55,8 @@ fun List<String>.toIntArray() = this.map { it.toInt() }.toTypedArray()
 fun Array<Array<Char>>.isRightStep(step: List<String>) = get(step.toIntArray()).toString().isNotBlank()
 
 fun Int.printWinner() = if (this % 2 == 0) "Первый игрок победил" else "Второй игрок победил"
+
+infix fun Boolean.then(action : () -> Unit): Boolean {
+    if (this) action.invoke()
+    return this
+}

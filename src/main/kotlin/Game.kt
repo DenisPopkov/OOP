@@ -24,15 +24,12 @@ class Game(
         indexState++
     }
 
-    fun takeBack(shift: Int): Boolean {
-        val prevStatesSize = states.size
-        val shiftPredicate = shift in 0..prevStatesSize
-        if (shiftPredicate) {
+    fun takeBack(shift: Int) = (shift in 0..states.size).apply {
+        then {
             indexState = shift
-            val state = states.dropLastWhile { it != states[shift] }
-            states.addAll(state)
+            with (states) {
+                dropLastWhile { it != states[shift] }.also { addAll(this) }
+            }
         }
-
-        return shiftPredicate
     }
 }
