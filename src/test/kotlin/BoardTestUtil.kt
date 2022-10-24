@@ -35,4 +35,9 @@ object BoardTestUtil {
         arrayOf(' ', ' ', ' '),
         arrayOf(' ', ' ', ' ')
     )
+    val drawBoardArray = arrayOf(
+        arrayOf('0', 'X', '0'),
+        arrayOf('0', 'X', 'X'),
+        arrayOf('X', '0', '0')
+    )
 }
