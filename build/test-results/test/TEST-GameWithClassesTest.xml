@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="GameWithClassesTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2022-10-24T09:07:17" hostname="MacBook-Pro.local" time="0.049">
+<testsuite name="GameWithClassesTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2022-10-25T06:06:58" hostname="MacBook-Pro.local" time="0.028">
   <properties/>
-  <testcase name="stringToArray" classname="GameWithClassesTest" time="0.018"/>
+  <testcase name="stringToArray" classname="GameWithClassesTest" time="0.01"/>
   <testcase name="printBoardWithToString" classname="GameWithClassesTest" time="0.001"/>
-  <testcase name="draw" classname="GameWithClassesTest" time="0.001"/>
+  <testcase name="draw" classname="GameWithClassesTest" time="0.0"/>
   <testcase name="boardFromLine" classname="GameWithClassesTest" time="0.0"/>
-  <testcase name="getFromPoint" classname="GameWithClassesTest" time="0.011"/>
-  <testcase name="getFromArray" classname="GameWithClassesTest" time="0.0"/>
-  <testcase name="getOrNull" classname="GameWithClassesTest" time="0.0"/>
-  <testcase name="setAndCopy" classname="GameWithClassesTest" time="0.001"/>
-  <testcase name="gameStep" classname="GameWithClassesTest" time="0.002"/>
+  <testcase name="getFromPoint" classname="GameWithClassesTest" time="0.007"/>
+  <testcase name="getFromArray" classname="GameWithClassesTest" time="0.001"/>
+  <testcase name="getOrNull" classname="GameWithClassesTest" time="0.001"/>
+  <testcase name="setAndCopy" classname="GameWithClassesTest" time="0.0"/>
+  <testcase name="gameStep" classname="GameWithClassesTest" time="0.001"/>
   <testcase name="takeBack" classname="GameWithClassesTest" time="0.001"/>
-  <system-out><![CDATA[Второй игрок победил
+  <system-out><![CDATA[
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

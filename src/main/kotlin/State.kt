@@ -5,13 +5,14 @@ class State(
 
     val gameResult: String? = when {
         !board.cells.isFill() -> null
-        checkWin() == ' ' -> getTotalStepText()
+        checkWin().isWhitespace() -> getTotalStepText()
         else -> null
     }
 
-    override fun toString() = if (gameResult == null) {
-        if (!board.cells.isFill()) "Ничья" else board.cells.size.printWinner()
-    } else { "" }
+    override fun toString() = when (gameResult == null) {
+        !board.cells.isFill().thenIfNotTrue { board.cells.size.printWinner() } -> "Ничья"
+        else -> ""
+    }
 
     private fun getTotalStepText() = "Сейчас $turn ход:\n"
 

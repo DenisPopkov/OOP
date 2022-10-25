@@ -11,6 +11,7 @@ val winLines = arrayOf(
     arrayOf(arrayOf(0, 0), arrayOf(1, 1), arrayOf(2, 2)),
     arrayOf(arrayOf(0, 2), arrayOf(1, 1), arrayOf(2, 0))
 )
+const val COMMAND = -1
 val arrayIndexes = arrayOf(0, 0)
 val pointsIndexes = Point(0, 0)
 
@@ -45,18 +46,27 @@ fun Array<Array<Char>>.printBoard(): String {
 
 fun Int.getTurn() = if (this % 2 == 0) 'X' else '0'
 
-fun printIncorrectStepMessage(output: PrintStream) {
-    output.println("Неверные координаты или команда\n")
-    output.print("Ваш ход или команда: ")
+fun printIncorrectStepMessage() {
+    println("Неверные координаты или команда\n")
+    print("Ваш ход или команда: ")
 }
 
-fun List<String>.toIntArray() = this.map { it.toInt() }.toTypedArray()
+fun List<String>.toIntArray() = map { it.toInt() }.toTypedArray()
 
 fun Array<Array<Char>>.isRightStep(step: List<String>) = get(step.toIntArray()).toString().isNotBlank()
+
+fun Array<Int>.isIncorrectStep() = (this[0] < 0 || this[1] < 0) || (this[0] > 2 || this[1] > 2)
+
+fun List<String>.isCommand() = first().toIntOrNull() != COMMAND
 
 fun Int.printWinner() = if (this % 2 == 0) "Первый игрок победил" else "Второй игрок победил"
 
 infix fun Boolean.then(action : () -> Unit): Boolean {
     if (this) action.invoke()
+    return this
+}
+
+infix fun Boolean.thenIfNotTrue(action : () -> Unit): Boolean {
+    if (!this) action.invoke()
     return this
 }

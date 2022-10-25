@@ -9,14 +9,16 @@ fun game(
     val reader = BufferedReader(inputStream.reader())
     val game = Game()
     var finish = false
+    val lastBoard = game.states.last().board.cells
     output.println(game)
 
     do {
         output.print("Ваш ход или команда: ")
         var step = reader.readLine().split(" ")
+        val isIncorrectStep = step.toIntArray().isIncorrectStep()
 
-        while (step[0].toIntOrNull() != -1 && game.states.last().board.cells.isRightStep(step)) {
-            printIncorrectStepMessage(output)
+        while (isIncorrectStep.thenIfNotTrue { lastBoard.isRightStep(step) } && step.isCommand()) {
+            printIncorrectStepMessage()
             step = reader.readLine().split(" ")
         }
 
