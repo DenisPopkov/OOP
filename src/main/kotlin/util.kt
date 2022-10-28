@@ -53,13 +53,17 @@ fun printIncorrectStepMessage() {
 
 fun List<String>.toIntArray() = map { it.toInt() }.toTypedArray()
 
+fun Array<Char>.toIntArray() = map { it.digitToInt() }.toTypedArray()
+
 fun Array<Array<Char>>.isRightStep(step: List<String>) = get(step.toIntArray()).toString().isNotBlank()
 
-fun Array<Int>.isIncorrectStep() = (this[0] < 0 || this[1] < 0) || (this[0] > 2 || this[1] > 2)
+fun Point.isIncorrectStep() = (x < 0 || y < 0) || (x > 2 || y > 2)
 
 fun List<String>.isCommand() = first().toIntOrNull() != COMMAND
 
 fun Int.printWinner() = if (this % 2 == 0) "Первый игрок победил" else "Второй игрок победил"
+
+fun Array<Int>.toPoint() = Point(this[0], this[1])
 
 infix fun Boolean.then(action : () -> Unit): Boolean {
     if (this) action.invoke()
@@ -69,4 +73,9 @@ infix fun Boolean.then(action : () -> Unit): Boolean {
 infix fun Boolean.thenIfNotTrue(action : () -> Unit): Boolean {
     if (!this) action.invoke()
     return this
+}
+
+infix fun <T> Boolean.invokeOrNull(action : () -> Unit): T? {
+    if (this) action.invoke()
+    return null
 }

@@ -15,11 +15,17 @@ fun game(
     do {
         output.print("Ваш ход или команда: ")
         var step = reader.readLine().split(" ")
-        val isIncorrectStep = step.toIntArray().isIncorrectStep()
+        var input = Input.parse(step.joinToString())
 
-        while (isIncorrectStep.thenIfNotTrue { lastBoard.isRightStep(step) } && step.isCommand()) {
-            printIncorrectStepMessage()
-            step = reader.readLine().split(" ")
+        when (input) {
+            Input.Exit() -> {
+                //val isIncorrectStep = step.toIntArray().isIncorrectStep()
+
+                while (input is Input.) {
+                    printIncorrectStepMessage()
+                    step = reader.readLine().split(" ")
+                }
+            }
         }
 
         if (step.size != 2) {
