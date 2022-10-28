@@ -18,7 +18,7 @@ fun game(
         var input = Input.parse(step.joinToString())
 
         when (input) {
-            Input.Exit() -> {
+            Input.Exit -> {
                 //val isIncorrectStep = step.toIntArray().isIncorrectStep()
 
                 while (input is Input.) {

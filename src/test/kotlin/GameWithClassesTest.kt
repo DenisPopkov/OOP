@@ -1,21 +1,11 @@
 import BoardTestUtil.board3x3Array
-import BoardTestUtil.board4x3Array
 import BoardTestUtil.drawBoardArray
 import BoardTestUtil.setAndCopyArray
 import BoardTestUtil.winBoardArray
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
-import java.io.InputStream
-import java.io.PrintStream
 
 class GameWithClassesTest: StringSpec({
-
-    val outputBuffer = ByteArrayOutputStream()
-    val outputBufferSecond = ByteArrayOutputStream()
-    val output = PrintStream(outputBuffer)
-    val outputSecond = PrintStream(outputBufferSecond)
 
     "stringToArray" {
         Board("   \n X \n  0").cells shouldBe board3x3Array

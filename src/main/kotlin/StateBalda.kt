@@ -12,7 +12,7 @@ class StateBalda(
         TODO("Not yet implemented")
     }
 
-    override fun nextState(step: Step): AbstractState {
+    override fun nextState(step: Input.Step): AbstractState {
         TODO("Not yet implemented")
     }
 }

@@ -12,6 +12,9 @@ class Board(val cells: Array<Array<Char>> = getEmptyArray(size)) {
         board.cells.copy()
     }
 
+    constructor(boardSize: Int, cells: Array<Array<Char>>): this() {
+    }
+
     override fun toString() = cells.joinToString(
         separator = "\n",
         prefix = "\n",

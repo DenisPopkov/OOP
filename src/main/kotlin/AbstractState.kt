@@ -6,9 +6,9 @@ abstract class AbstractState(
 
     abstract fun copy(): AbstractState
 
-    fun step(step: Step): AbstractState? = checkStep(step).invokeOrNull { nextState(step) }
+    fun step(step: Input.Step): AbstractState? = checkStep(step).invokeOrNull { nextState(step) }
 
-    open fun checkStep(step: Step): Boolean {
+    open fun checkStep(step: Input.Step): Boolean {
         val isFill = board.cells.isFill()
         val isGameOver = gameResult == null
         val isIncorrectStep = step.point.isIncorrectStep()
@@ -16,5 +16,5 @@ abstract class AbstractState(
         return isFill && isGameOver && isIncorrectStep
     }
 
-    abstract fun nextState(step: Step): AbstractState
+    abstract fun nextState(step: Input.Step): AbstractState
 }
