@@ -30,6 +30,11 @@ object BoardTestUtil {
         arrayOf(' ', ' ', ' '),
         arrayOf(' ', ' ', 'X')
     )
+    val setAndCopyArray = arrayOf(
+        arrayOf(' ', ' ', ' '),
+        arrayOf(' ', ' ', ' '),
+        arrayOf(' ', ' ', 'X')
+    )
     val isRightMoveBoardArray = arrayOf(
         arrayOf('X', ' ', ' '),
         arrayOf(' ', ' ', ' '),
