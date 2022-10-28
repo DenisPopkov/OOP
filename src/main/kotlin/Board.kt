@@ -12,7 +12,8 @@ class Board(val cells: Array<Array<Char>> = getEmptyArray(size)) {
         board.cells.copy()
     }
 
-    constructor(boardSize: Int, cells: Array<Array<Char>>): this() {
+    constructor(boardSize: Int) : this() {
+        size = boardSize
     }
 
     override fun toString() = cells.joinToString(
