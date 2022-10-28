@@ -1,17 +1,30 @@
 import BoardTestUtil.board3x3Array
+import BoardTestUtil.board4x3Array
 import BoardTestUtil.drawBoardArray
+import BoardTestUtil.setAndCopyArray
 import BoardTestUtil.winBoardArray
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import java.io.PrintStream
 
 class GameWithClassesTest: StringSpec({
 
+    val outputBuffer = ByteArrayOutputStream()
+    val outputBufferSecond = ByteArrayOutputStream()
+    val output = PrintStream(outputBuffer)
+    val outputSecond = PrintStream(outputBufferSecond)
+
     "stringToArray" {
         Board("   \n X \n  0").cells shouldBe board3x3Array
+        Board("\n|X    |\n|  X  |\n|    X|").cells shouldBe winBoardArray
     }
 
     "printBoardWithToString" {
         Board(board3x3Array).toString() shouldBe "\n|     |\n|  X  |\n|    0|"
+        Board(winBoardArray).toString() shouldBe "\n|X    |\n|  X  |\n|    X|"
     }
 
     "draw" {
@@ -25,25 +38,33 @@ class GameWithClassesTest: StringSpec({
 
     "getFromPoint" {
         Board()[pointsIndexes] shouldBe ' '
+        Board(cells = board3x3Array)[Point(1, 1)] shouldBe 'X'
     }
 
     "getFromArray" {
         Board()[arrayIndexes] shouldBe ' '
+        Board(cells = board3x3Array)[arrayOf(1, 1)] shouldBe 'X'
     }
 
     "getOrNull" {
         Board().getOrNull(pointsIndexes) shouldBe null
+        Board().getOrNull(Point(1, 1)) shouldBe null
     }
 
     "setAndCopy" {
         Board().setAndCopy(pointsIndexes, ' ').toString() shouldBe Board().toString()
+        Board().setAndCopy(Point(2, 2), 'X').toString() shouldBe Board(cells = setAndCopyArray).toString()
     }
 
     "gameStep" {
         Game(State(Board(cells = winBoardArray))).step(pointsIndexes) shouldBe false
+        Game(State(Board(cells = winBoardArray))).step(Point(1, 1)) shouldBe false
     }
 
     "takeBack" {
         Game().takeBack(-3) shouldBe false
+        Game().takeBack(-7) shouldBe false
+        Game().takeBack(2) shouldBe false
+        Game().takeBack(0) shouldBe true
     }
 })
