@@ -1,3 +1,7 @@
+import game.Game
+import game.Input
+import util.outputConsole
+import util.printIncorrectStepMessage
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.PrintStream
@@ -8,44 +12,26 @@ fun game(
 ) {
     val reader = BufferedReader(inputStream.reader())
     val game = Game()
-    var finish = false
-    val lastBoard = game.states.last().board.cells
     output.println(game)
 
     do {
         output.print("Ваш ход или команда: ")
-        var step = reader.readLine().split(" ")
-        var input = Input.parse(step.joinToString())
+        var step = reader.readLine()
 
-        when (input) {
-            Input.Exit -> {
-                //val isIncorrectStep = step.toIntArray().isIncorrectStep()
-
-                while (input is Input.) {
+        when (val parsedInput = Input.parse(step)) {
+            is Input.Exit -> {
+                while (Input.parse(step) is Input.Exit) {
                     printIncorrectStepMessage()
-                    step = reader.readLine().split(" ")
+                    step = reader.readLine()
                 }
             }
+            is Input.TakeBack -> game.takeBack(parsedInput.shift)
+            is Input.Step -> game.step(parsedInput.point)
         }
 
-        if (step.size != 2) {
-            finish = true
-        } else {
-            val x = step[0].toIntOrNull()
-            val y = step[1].toIntOrNull()
+        output.println(game)
 
-            if (x == null || y == null) {
-                output.println("Неверные координаты или команда\n")
-            } else {
-                if (x == -1) {
-                    if (game.takeBack(y)) output.println(game) else output.println("Неправильная команда\n")
-                } else {
-                    game.step(Point(x, y))
-                    output.println(game)
-                }
-            }
-        }
-    } while (!finish && !game.gameOver)
+    } while (!game.gameOver)
 }
 
 fun main() {

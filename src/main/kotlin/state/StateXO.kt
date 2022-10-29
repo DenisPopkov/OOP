@@ -1,10 +1,14 @@
-class StateXO(board: Board, val turn: String = "X") : AbstractState(board) {
+package state
 
-    private fun getTotalStepText() = "Сейчас $turn ход:\n"
+import game.Board
+import game.Input
+import util.*
+
+class StateXO(board: Board, private val turn: String = "X") : AbstractState(board) {
 
     override val gameResult: String? = when {
         !board.cells.isFill() -> null
-        checkWin().isWhitespace() -> getTotalStepText()
+        checkWin().isWhitespace() -> ""
         else -> null
     }
 
@@ -13,14 +17,21 @@ class StateXO(board: Board, val turn: String = "X") : AbstractState(board) {
         return nextState(Input.Step(0, 0))
     }
 
-    override fun nextState(step: Input.Step): AbstractState = copy()
+    override fun nextState(step: Input.Step): AbstractState {
+        val newState = copy()
+    }
+
+    fun step(point: Point): StateXO? = when {
+        board.cells.isRightMove(point.toPair()) -> StateXO(Board(board.cells), turn)
+        else -> null
+    }
 
     override fun toString() = when (gameResult == null) {
         !board.cells.isFill().thenIfNotTrue { board.cells.size.printWinner() } -> "Ничья"
         else -> ""
     }
 
-    private fun checkWin(): Char {
+    fun checkWin(): Char {
         var line = " "
         winLines.forEach { winningLine ->
             winningLine.forEach {

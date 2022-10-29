@@ -1,3 +1,11 @@
+package state
+
+import game.Board
+import game.Input
+import util.invokeOrNull
+import util.isFill
+import util.isIncorrectStep
+
 abstract class AbstractState(
     val board: Board
 ) {

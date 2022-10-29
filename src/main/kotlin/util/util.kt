@@ -1,3 +1,5 @@
+package util
+
 import java.io.PrintStream
 
 val outputConsole = PrintStream(System.out, true, "UTF-8")
@@ -18,6 +20,7 @@ val pointsIndexes = Point(0, 0)
 fun getEmptyArray(size: Int) = Array(size) { Array(size) { ' ' } }
 
 fun Array<Array<Char>>.get(point: Pair<Int, Int>): Char = this[point.first][point.second]
+
 fun Array<Array<Char>>.get(point: Array<Int>): Char = this[point[0]][point[1]]
 fun Array<Array<Char>>.set(point: Pair<Int, Int>, char: Char) {
     this[point.first][point.second] = char
@@ -51,19 +54,11 @@ fun printIncorrectStepMessage() {
     print("Ваш ход или команда: ")
 }
 
-fun List<String>.toIntArray() = map { it.toInt() }.toTypedArray()
-
-fun Array<Char>.toIntArray() = map { it.digitToInt() }.toTypedArray()
-
-fun Array<Array<Char>>.isRightStep(step: List<String>) = get(step.toIntArray()).toString().isNotBlank()
-
 fun Point.isIncorrectStep() = (x < 0 || y < 0) || (x > 2 || y > 2)
-
-fun List<String>.isCommand() = first().toIntOrNull() != COMMAND
 
 fun Int.printWinner() = if (this % 2 == 0) "Первый игрок победил" else "Второй игрок победил"
 
-fun Array<Int>.toPoint() = Point(this[0], this[1])
+fun List<Int>.toPoint() = Point(this[0], this[1])
 
 infix fun Boolean.then(action : () -> Unit): Boolean {
     if (this) action.invoke()

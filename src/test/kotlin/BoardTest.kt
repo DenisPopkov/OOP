@@ -3,11 +3,15 @@ import BoardTestUtil.board4x3Array
 import BoardTestUtil.isFillBoardArray
 import BoardTestUtil.isRightMoveBoardArray
 import BoardTestUtil.notWinCombinationsOnBoardArray
-import BoardTestUtil.output
 import BoardTestUtil.outputBuffer
 import BoardTestUtil.winBoardArray
+import game.Board
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import state.StateXO
+import util.isFill
+import util.isRightMove
+import util.printBoard
 
 class BoardTest : StringSpec({
 
@@ -21,18 +25,18 @@ class BoardTest : StringSpec({
     }
 
     "winBoard" {
-        State(Board(winBoardArray)).checkWin() shouldBe 'X'
+        StateXO(Board(winBoardArray)).checkWin() shouldBe 'X'
     }
 
     "notWinCombinationsOnBoard" {
-        State(Board(notWinCombinationsOnBoardArray)).checkWin() shouldBe ' '
+        StateXO(Board(notWinCombinationsOnBoardArray)).checkWin() shouldBe ' '
     }
 
-    "isFill" {
+    "util.isFill" {
         isFillBoardArray.isFill() shouldBe true
     }
 
-    "isRightMove" {
+    "util.isRightMove" {
         isRightMoveBoardArray.isRightMove(Pair(2, 2)) shouldBe true
     }
 })

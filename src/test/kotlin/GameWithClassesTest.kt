@@ -2,8 +2,14 @@ import BoardTestUtil.board3x3Array
 import BoardTestUtil.drawBoardArray
 import BoardTestUtil.setAndCopyArray
 import BoardTestUtil.winBoardArray
+import game.Board
+import game.Game
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import state.StateXO
+import util.Point
+import util.arrayIndexes
+import util.pointsIndexes
 
 class GameWithClassesTest: StringSpec({
 
@@ -18,7 +24,7 @@ class GameWithClassesTest: StringSpec({
     }
 
     "draw" {
-        State(board = Board(cells = drawBoardArray)).toString() shouldBe "Ничья"
+        StateXO(board = Board(cells = drawBoardArray)).toString() shouldBe "Ничья"
     }
 
     "boardFromLine" {
@@ -47,8 +53,8 @@ class GameWithClassesTest: StringSpec({
     }
 
     "gameStep" {
-        Game(State(Board(cells = winBoardArray))).step(pointsIndexes) shouldBe false
-        Game(State(Board(cells = winBoardArray))).step(Point(1, 1)) shouldBe false
+        Game().step(pointsIndexes) shouldBe false
+        Game().step(Point(1, 1)) shouldBe false
     }
 
     "takeBack" {
