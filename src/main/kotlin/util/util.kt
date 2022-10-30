@@ -47,8 +47,6 @@ fun Array<Array<Char>>.printBoard(): String {
     return boardString
 }
 
-fun Int.getTurn() = if (this % 2 == 0) 'X' else '0'
-
 fun printIncorrectStepMessage() {
     println("Неверные координаты или команда\n")
     print("Ваш ход или команда: ")

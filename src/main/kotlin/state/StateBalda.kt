@@ -2,10 +2,11 @@ package state
 
 import game.Board
 import game.Input
+import util.Point
 
 class StateBalda(
-    board: Board,
-    val turn: Int = 1,
+    board: Board = Board(),
+    val turn: Char = 'X',
     val words1: List<String> = ArrayList(),
     val words2: List<String> = ArrayList()
 ) : AbstractState(board) {
@@ -31,8 +32,11 @@ class StateBalda(
         //if (turn % 2 == 1) {
         //    firstWords[turn] = turn
         //}
-        return nextState(Input.Step(0, 0, param = emptyList()))
+        return StateBalda()
     }
 
-    override fun nextState(step: Input.Step): AbstractState = copy()
+    override fun nextState(step: Input.Step): AbstractState {
+        board.setAndCopy(point = Point(step.x, step.y), turn)
+        return copy()
+    }
 }

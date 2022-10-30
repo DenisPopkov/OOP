@@ -1,5 +1,9 @@
-import game.Game
 import game.Input
+import game.MultiGame
+import state.AbstractState
+import state.StateBalda
+import state.StateXO
+import util.GameCommand
 import util.outputConsole
 import util.printIncorrectStepMessage
 import java.io.BufferedReader
@@ -8,10 +12,11 @@ import java.io.PrintStream
 
 fun game(
     inputStream: InputStream = System.`in`,
-    output: PrintStream = outputConsole
+    output: PrintStream = outputConsole,
+    abstractState: AbstractState
 ) {
     val reader = BufferedReader(inputStream.reader())
-    val game = Game()
+    val game = MultiGame(abstractState)
     output.println(game)
 
     do {
@@ -35,6 +40,10 @@ fun game(
 }
 
 fun main() {
-    println("Игра крестики-нолики\nПопков Денис, 21м\n")
-    game()
+    println("0: Крестики-нолики\n1: Балда")
+    when (readln().toInt()) {
+        GameCommand.GAME_XO.ordinal -> StateXO()
+        GameCommand.GAME_BALDA.ordinal -> StateBalda()
+        else -> null
+    }.let { if (it != null) game(abstractState = it) else println("Некорректный номер игры") }
 }

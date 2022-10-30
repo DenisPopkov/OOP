@@ -4,7 +4,7 @@ import game.Board
 import game.Input
 import util.*
 
-class StateXO(board: Board, private val turn: String = "X") : AbstractState(board) {
+class StateXO(board: Board = Board(), private val turn: Char = 'X') : AbstractState(board) {
 
     override val gameResult: String? = when {
         !board.cells.isFill() -> null
@@ -12,18 +12,11 @@ class StateXO(board: Board, private val turn: String = "X") : AbstractState(boar
         else -> null
     }
 
-    override fun copy(): AbstractState {
-        val newBoard = board.cells.copy()
-        return nextState(Input.Step(0, 0))
-    }
+    override fun copy(): AbstractState = StateXO()
 
     override fun nextState(step: Input.Step): AbstractState {
-        val newState = copy()
-    }
-
-    fun step(point: Point): StateXO? = when {
-        board.cells.isRightMove(point.toPair()) -> StateXO(Board(board.cells), turn)
-        else -> null
+        val newBoard = board.setAndCopy(point = Point(step.x, step.y), turn)
+        return StateXO(board = newBoard)
     }
 
     override fun toString() = when (gameResult == null) {

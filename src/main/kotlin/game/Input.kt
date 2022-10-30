@@ -21,11 +21,11 @@ sealed interface Input {
             val input = string.split(" ").map { it.toInt() }
             val (x, y) = input
             val isCommand = x == COMMAND
-            val statesCount = 0..Game().statesXO.size
+            //val statesCount = 0..MultiGame().boardSize
 
             return when {
                 !isCommand && input.toPoint().isIncorrectStep() -> Exit
-                isCommand && y !in statesCount -> Exit
+                //isCommand && y !in statesCount -> Exit
                 isCommand -> TakeBack(shift = x)
                 else -> Step(x, y)
             }
