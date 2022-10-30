@@ -1,6 +1,7 @@
 package game
 
 import util.*
+
 class Board(val cells: Array<Array<Char>> = getEmptyArray(size)) {
 
     private val isFill: Boolean = cells.isFill()

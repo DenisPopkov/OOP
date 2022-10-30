@@ -3,28 +3,26 @@ import BoardTestUtil.drawBoardArray
 import BoardTestUtil.setAndCopyArray
 import BoardTestUtil.winBoardArray
 import game.Board
-import game.Game
+import game.Input
+import game.MultiGame
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import state.StateXO
 import util.Point
 import util.arrayIndexes
+import util.outputConsole
 import util.pointsIndexes
 
-class GameWithClassesTest: StringSpec({
+class MultiGameWithClassesTest: StringSpec({
 
     "stringToArray" {
         Board("   \n X \n  0").cells shouldBe board3x3Array
-        Board("\n|X    |\n|  X  |\n|    X|").cells shouldBe winBoardArray
+        Board("X  \n X \n  X").cells shouldBe winBoardArray
     }
 
     "printBoardWithToString" {
         Board(board3x3Array).toString() shouldBe "\n|     |\n|  X  |\n|    0|"
         Board(winBoardArray).toString() shouldBe "\n|X    |\n|  X  |\n|    X|"
-    }
-
-    "draw" {
-        StateXO(board = Board(cells = drawBoardArray)).toString() shouldBe "Ничья"
     }
 
     "boardFromLine" {
@@ -50,17 +48,5 @@ class GameWithClassesTest: StringSpec({
     "setAndCopy" {
         Board().setAndCopy(pointsIndexes, ' ').toString() shouldBe Board().toString()
         Board().setAndCopy(Point(2, 2), 'X').toString() shouldBe Board(cells = setAndCopyArray).toString()
-    }
-
-    "gameStep" {
-        Game().step(pointsIndexes) shouldBe false
-        Game().step(Point(1, 1)) shouldBe false
-    }
-
-    "takeBack" {
-        Game().takeBack(-3) shouldBe false
-        Game().takeBack(-7) shouldBe false
-        Game().takeBack(2) shouldBe false
-        Game().takeBack(0) shouldBe true
     }
 })

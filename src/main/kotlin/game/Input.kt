@@ -7,27 +7,24 @@ import util.toPoint
 
 sealed interface Input {
 
-    object Exit : Input
-
-    class TakeBack(val shift: Int): Input
-
-    class Step(val x: Int, val y: Int, val param: List<String> = emptyList()): Input {
+    class TakeBack(val shift: Int) : Input
+    class Step(val x: Int, val y: Int, val param: List<String> = emptyList()) : Input {
         val point = Point(x, y)
     }
 
+    object Exit : Input
     companion object {
         fun parse(string: String): Input {
 
             val input = string.split(" ").map { it.toInt() }
             val (x, y) = input
             val isCommand = x == COMMAND
-            //val statesCount = 0..MultiGame().boardSize
+            val statesCount = 0..MultiGame().states.size
 
             return when {
-                !isCommand && input.toPoint().isIncorrectStep() -> Exit
-                //isCommand && y !in statesCount -> Exit
-                isCommand -> TakeBack(shift = x)
-                else -> Step(x, y)
+                !input.toPoint().isIncorrectStep() -> Step(x, y)
+                isCommand && y in statesCount -> TakeBack(shift = y)
+                else -> Exit
             }
         }
     }
