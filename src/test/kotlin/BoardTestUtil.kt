@@ -1,9 +1,7 @@
 import java.io.ByteArrayOutputStream
-import java.io.PrintStream
 
 object BoardTestUtil {
     val outputBuffer = ByteArrayOutputStream()
-    val output = PrintStream(outputBuffer)
     val board3x3Array = arrayOf(
         arrayOf(' ', ' ', ' '),
         arrayOf(' ', 'X', ' '),

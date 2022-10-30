@@ -54,7 +54,7 @@ fun printIncorrectStepMessage() {
 
 fun Point.isIncorrectStep() = (x < 0 || y < 0) || (x > 2 || y > 2)
 
-fun Int.printWinner() = if (this % 2 == 0) "Первый игрок победил" else "Второй игрок победил"
+fun Int.getWinner() = if (this % 2 == 0) "Первый игрок победил" else "Второй игрок победил"
 
 fun List<Int>.toPoint() = Point(this[0], this[1])
 
@@ -72,3 +72,9 @@ infix fun <T> Boolean.invokeOrNull(action : () -> Unit): T? {
     if (this) action.invoke()
     return null
 }
+
+fun Array<Array<Char>>.merge(anotherArray: Array<Array<Char>>) = anotherArray.mapIndexed { index, array ->
+    array.mapIndexed { index2, c ->
+        if (c == ' ') this[index][index2] else c
+    }.toTypedArray()
+}.toTypedArray()

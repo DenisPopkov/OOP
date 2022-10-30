@@ -7,8 +7,7 @@ import util.*
 class StateXO(board: Board = Board(), private val turn: Char = 'X') : AbstractState(board) {
 
     override val gameResult: String? = when {
-        !board.cells.isFill() -> null
-        checkWin().isWhitespace() -> ""
+        board.checkWin().isWhitespace() -> ""
         else -> null
     }
 
@@ -19,16 +18,11 @@ class StateXO(board: Board = Board(), private val turn: Char = 'X') : AbstractSt
         return StateXO(board = newBoard)
     }
 
-    override fun toString() = when (gameResult == null) {
-        !board.cells.isFill().thenIfNotTrue { board.cells.size.printWinner() } -> "Ничья"
-        else -> ""
-    }
-
-    fun checkWin(): Char {
+    fun Board.checkWin(): Char {
         var line = " "
         winLines.forEach { winningLine ->
             winningLine.forEach {
-                line += board.cells[it[0]][it[1]]
+                line += cells[it[0]][it[1]]
             }.also {
                 line = line.trim()
                 if (line.isSame()) return line.first() else line = " "
