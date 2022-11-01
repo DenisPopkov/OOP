@@ -2,9 +2,14 @@ package state
 
 import game.Board
 import game.Input
-import util.*
+import game.MultiGame
+import util.Point
+import util.isSame
+import util.winLines
 
 class StateXO(board: Board = Board(), private val turn: Char = 'X') : AbstractState(board) {
+
+    private val game = MultiGame(abstractState = StateXO())
 
     override val gameResult: String? = when {
         board.checkWin().isWhitespace() -> ""
@@ -18,7 +23,7 @@ class StateXO(board: Board = Board(), private val turn: Char = 'X') : AbstractSt
         return StateXO(board = newBoard)
     }
 
-    fun Board.checkWin(): Char {
+    private fun Board.checkWin(): Char {
         var line = " "
         winLines.forEach { winningLine ->
             winningLine.forEach {
@@ -31,4 +36,10 @@ class StateXO(board: Board = Board(), private val turn: Char = 'X') : AbstractSt
 
         return line.first()
     }
+
+    fun step(point: Point) {
+        StateXO(turn = getTurn()).nextState(Input.Step(x = point.x, y = point.y))
+    }
+
+    private fun getTurn() = if (game.indexState % 2 == 0) 'X' else '0'
 }

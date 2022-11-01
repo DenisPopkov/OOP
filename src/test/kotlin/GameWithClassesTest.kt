@@ -1,16 +1,11 @@
 import BoardTestUtil.board3x3Array
-import BoardTestUtil.drawBoardArray
 import BoardTestUtil.setAndCopyArray
 import BoardTestUtil.winBoardArray
 import game.Board
-import game.Input
-import game.MultiGame
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
-import state.StateXO
 import util.Point
 import util.arrayIndexes
-import util.outputConsole
 import util.pointsIndexes
 
 class MultiGameWithClassesTest: StringSpec({

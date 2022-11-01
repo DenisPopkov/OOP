@@ -13,6 +13,7 @@ sealed interface Input {
     }
 
     object Exit : Input
+    
     companion object {
         fun parse(string: String): Input {
 

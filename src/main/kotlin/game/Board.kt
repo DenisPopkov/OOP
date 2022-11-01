@@ -16,7 +16,7 @@ class Board(val cells: Array<Array<Char>> = getEmptyArray(size)) {
         board.cells.copy()
     }
 
-    constructor(boardSize: Int) : this() {
+    constructor(board: Array<Array<Char>>, boardSize: Int) : this(cells = board) {
         size = boardSize
     }
 
@@ -34,6 +34,11 @@ class Board(val cells: Array<Array<Char>> = getEmptyArray(size)) {
 
     fun setAndCopy(point: Point, c: Char): Board {
         cells.set(point.toPair(), c)
+        return Board(cells = cells.copy())
+    }
+
+    fun setStringAndCopy(word: Array<String>, point: Point): Board {
+        cells.set(s = word, step = point)
         return Board(cells = cells.copy())
     }
 

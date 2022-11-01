@@ -13,6 +13,13 @@ val winLines = arrayOf(
     arrayOf(arrayOf(0, 0), arrayOf(1, 1), arrayOf(2, 2)),
     arrayOf(arrayOf(0, 2), arrayOf(1, 1), arrayOf(2, 0))
 )
+val baldaArray = arrayOf(
+    arrayOf(' ', ' ', ' ', ' ', ' '),
+    arrayOf(' ', ' ', ' ', ' ', ' '),
+    arrayOf('И', 'С', 'К', 'Р', 'А'),
+    arrayOf(' ', ' ', ' ', ' ', ' '),
+    arrayOf(' ', ' ', ' ', ' ', ' ')
+)
 const val COMMAND = -1
 val arrayIndexes = arrayOf(0, 0)
 val pointsIndexes = Point(0, 0)
@@ -24,6 +31,13 @@ fun Array<Array<Char>>.get(point: Pair<Int, Int>): Char = this[point.first][poin
 fun Array<Array<Char>>.get(point: Array<Int>): Char = this[point[0]][point[1]]
 fun Array<Array<Char>>.set(point: Pair<Int, Int>, char: Char) {
     this[point.first][point.second] = char
+}
+
+fun Array<Array<Char>>.set(s: Array<String>, step: Point) {
+    val charArray = s.first().map { it }
+    for ((index, i) in (step.x downTo 0).withIndex()) {
+        this[i][step.y] = charArray[index].uppercaseChar()
+    }
 }
 
 fun String.isSame() = this == "XXX" || this == "000"
@@ -57,16 +71,6 @@ fun Point.isIncorrectStep() = (x < 0 || y < 0) || (x > 2 || y > 2)
 fun Int.getWinner() = if (this % 2 == 0) "Первый игрок победил" else "Второй игрок победил"
 
 fun List<Int>.toPoint() = Point(this[0], this[1])
-
-infix fun Boolean.then(action : () -> Unit): Boolean {
-    if (this) action.invoke()
-    return this
-}
-
-infix fun Boolean.thenIfNotTrue(action : () -> Unit): Boolean {
-    if (!this) action.invoke()
-    return this
-}
 
 infix fun <T> Boolean.invokeOrNull(action : () -> Unit): T? {
     if (this) action.invoke()
