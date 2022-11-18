@@ -42,7 +42,7 @@ fun game(
                 }
             }
             is Input.TakeBack -> game.takeBack(parsedInput.shift)
-            is Input.Step -> StateXO().step(parsedInput.point).also { StateBalda().step(parsedInput.point) }
+            is Input.Step -> game.step(parsedInput.point)
         }
 
         output.println(game)
