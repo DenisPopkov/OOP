@@ -18,11 +18,6 @@ object BoardTestUtil {
         arrayOf(' ', 'X', ' '),
         arrayOf(' ', ' ', 'X')
     )
-    val notWinCombinationsOnBoardArray = arrayOf(
-        arrayOf('X', ' ', ' '),
-        arrayOf(' ', ' ', ' '),
-        arrayOf(' ', ' ', 'X')
-    )
     val isFillBoardArray = arrayOf(
         arrayOf('X', ' ', ' '),
         arrayOf(' ', ' ', ' '),
@@ -37,10 +32,5 @@ object BoardTestUtil {
         arrayOf('X', ' ', ' '),
         arrayOf(' ', ' ', ' '),
         arrayOf(' ', ' ', ' ')
-    )
-    val drawBoardArray = arrayOf(
-        arrayOf('0', 'X', '0'),
-        arrayOf('0', 'X', 'X'),
-        arrayOf('X', '0', '0')
     )
 }
