@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MultiGameWithClassesTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2022-11-18T11:14:28" hostname="MacBook-Pro.local" time="0.022">
+<testsuite name="MultiGameWithClassesTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2022-11-19T12:28:00" hostname="MacBook-Pro.local" time="0.027">
   <properties/>
-  <testcase name="stringToArray" classname="MultiGameWithClassesTest" time="0.01"/>
-  <testcase name="printBoardWithToString" classname="MultiGameWithClassesTest" time="0.001"/>
-  <testcase name="boardFromLine" classname="MultiGameWithClassesTest" time="0.001"/>
-  <testcase name="getFromPoint" classname="MultiGameWithClassesTest" time="0.007"/>
+  <testcase name="stringToArray" classname="MultiGameWithClassesTest" time="0.009"/>
+  <testcase name="printBoardWithToString" classname="MultiGameWithClassesTest" time="0.0"/>
+  <testcase name="boardFromLine" classname="MultiGameWithClassesTest" time="0.0"/>
+  <testcase name="getFromPoint" classname="MultiGameWithClassesTest" time="0.01"/>
   <testcase name="getFromArray" classname="MultiGameWithClassesTest" time="0.001"/>
-  <testcase name="getOrNull" classname="MultiGameWithClassesTest" time="0.001"/>
-  <testcase name="setAndCopy" classname="MultiGameWithClassesTest" time="0.0"/>
+  <testcase name="getOrNull" classname="MultiGameWithClassesTest" time="0.0"/>
+  <testcase name="setAndCopy" classname="MultiGameWithClassesTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -20,7 +20,7 @@ sealed interface Input {
             val input = string.split(" ").map { it.toInt() }
             val (x, y) = input
             val isCommand = x == COMMAND
-            val statesCount = 0..MultiGame().states.size
+            val statesCount = 0..EMultiGame().states.state.board.cells.size
 
             return when {
                 !input.toPoint().isIncorrectStep() -> Step(x, y)
